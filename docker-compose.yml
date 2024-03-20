@@ -1,15 +1,13 @@
 version: '3.8'
-
 services:
   db:
     image: mysql:5.7
-    environment:
-      MYSQL_ROOT_PASSWORD: your_root_password
-      MYSQL_DATABASE: roster
-      MYSQL_USER: django_user
-      MYSQL_PASSWORD: django_password
     volumes:
       - db-data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_DATABASE: roster
     ports:
       - "3307:3306"
 
@@ -23,11 +21,10 @@ services:
     depends_on:
       - db
     environment:
-      MYSQL_HOST: db
-      MYSQL_USER: django_user
-      MYSQL_PASSWORD: django_password
-      MYSQL_DATABASE: roster
-      DJANGO_SETTINGS_MODULE: dataInCloud.settings
+      - "DATABASE_HOST=db"
+      - "DATABASE_NAME=roster"
+      - "DATABASE_USER=root"
+      - "DATABASE_PASSWORD=12345"
 
 volumes:
   db-data:
