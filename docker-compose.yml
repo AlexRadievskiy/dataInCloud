@@ -1,17 +1,18 @@
 version: '3.8'
+
 services:
   db:
     image: mysql:5.7
     environment:
-      MYSQL_DATABASE: 'roster'
-      MYSQL_USER: 'root'
-      MYSQL_PASSWORD: '12345'
-      MYSQL_ROOT_PASSWORD: '12345'
-    command: ['--sql-mode=STRICT_TRANS_TABLES']
-    ports:
-      - "3306:3306"
+      MYSQL_ROOT_PASSWORD: your_root_password
+      MYSQL_DATABASE: roster
+      MYSQL_USER: django_user
+      MYSQL_PASSWORD: django_password
     volumes:
       - db-data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+
   web:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
@@ -22,11 +23,11 @@ services:
     depends_on:
       - db
     environment:
-      DATABASE_HOST: db
-      DATABASE_NAME: 'roster'
-      DATABASE_USER: 'root'
-      DATABASE_PASSWORD: '12345'
-      DJANGO_SETTINGS_MODULE: 'dataInCloud.settings'
+      MYSQL_HOST: db
+      MYSQL_USER: django_user
+      MYSQL_PASSWORD: django_password
+      MYSQL_DATABASE: roster
+      DJANGO_SETTINGS_MODULE: dataInCloud.settings
 
 volumes:
   db-data:
