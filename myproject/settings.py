@@ -74,15 +74,14 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-import os
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('DATABASE_NAME', 'roster'),
-        'USER': os.environ.get('DATABASE_USER', 'root'),
-        'PASSWORD': os.environ.get('DATABASE_PASSWORD', '12345'),
-        'HOST': os.environ.get('DATABASE_HOST', 'db'),
+        'NAME': 'roster',
+        'USER': 'root',
+        'PASSWORD': '12345',
+        'HOST': 'host.docker.internal',
         'PORT': '3306',
     }
 }
