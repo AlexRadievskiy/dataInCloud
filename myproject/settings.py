@@ -83,6 +83,8 @@ DATABASES = {
         'PASSWORD': '12345',
         'HOST': 'host.docker.internal',
         'PORT': '3306',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"}
     }
 }
 
