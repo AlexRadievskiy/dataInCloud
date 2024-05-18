@@ -6,6 +6,8 @@ services:
     container_name: mongodb
     ports:
       - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
 
   web:
     build: .
@@ -14,11 +16,16 @@ services:
     ports:
       - "8000:8000"
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
-      DATABASE_NAME: your-database-name
+      DATABASE_NAME: dataInCloudDB
+      DATABASE_USER: root
+      DATABASE_PASSWORD: example
       DATABASE_HOST: db
       DATABASE_PORT: 27017
     command: >
       sh -c "python manage.py migrate &&
              python manage.py runserver 0.0.0.0:8000"
+    depends_on:
+      - db
+
+volumes:
+  mongo_data:
