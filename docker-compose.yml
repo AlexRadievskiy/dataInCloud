@@ -1,6 +1,12 @@
 version: '3.8'
 
 services:
+  db:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+
   web:
     build: .
     volumes:
@@ -8,11 +14,11 @@ services:
     ports:
       - "8000:8000"
     environment:
-      DATABASE_NAME: roster
-      DATABASE_USER: root
-      DATABASE_PASSWORD: 12345
-      DATABASE_HOST: host.docker.internal
-      DATABASE_PORT: 3306
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      DATABASE_NAME: your-database-name
+      DATABASE_HOST: db
+      DATABASE_PORT: 27017
     command: >
       sh -c "python manage.py migrate &&
              python manage.py runserver 0.0.0.0:8000"

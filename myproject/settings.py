@@ -74,20 +74,22 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'roster',
-        'USER': 'root',
-        'PASSWORD': '12345',
-        'HOST': 'host.docker.internal',
-        'PORT': '3306',
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"}
+        'ENGINE': 'djongo',
+        'NAME': 'your-database-name',
+        'ENFORCE_SCHEMA': True,
+        'CLIENT': {
+            'host': 'db',
+            'port': 27017,
+            'username': 'root',
+            'password': 'example',
+        },
+        'TEST': {
+            'NAME': 'test_your-database-name',
+        }
     }
 }
-
 
 
 # Password validation
